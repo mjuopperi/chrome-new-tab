@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+
+  "name": "New Tab",
+  "description": "Real fancy new tab",
+  "version": "1.0",
+
+  "permissions" : [
+    "management",
+    "https://ajax.googleapis.com/"
+  ],
+
+  "chrome_url_overrides" : {
+    "newtab": "newtab.html"
+  }
+}

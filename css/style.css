@@ -1,0 +1,114 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    background: #637383 no-repeat center center fixed;
+    background-size: cover;
+    width: 100%;
+    color: #fff;
+}
+
+#content {
+    height: 100%;
+    margin:0;
+    padding:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+a {
+    color: #fff;
+}
+
+.weather {
+    display: flex;
+    align-items: center;
+    width: 642px;
+    margin: 0 40px 20px;
+}
+
+.weather h1, .weather svg, .weather-info {
+    display: inline-block;
+    flex: 1;
+}
+
+.weather h1, .weather h2 {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.weather h1 {
+    text-align: center;
+    font-size: 56px;
+    font-weight: 400;
+}
+
+.weather-info h1, .weather-info h2 {
+    margin: 0 0 0 10px;
+}
+
+.weather-info h1 {
+    font-size: 32px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+.weather-info h2 {
+    font-size: 24px;
+}
+
+.links {
+    margin: 0 40px;
+}
+
+.links ul {
+    list-style-type: none;
+    width: 642px;
+    padding: 0;
+    margin: 0 auto;
+}
+
+.links li {
+    display: inline-block;
+    position: relative;
+    margin: 5px 5px;
+}
+
+.links li i {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 30px;
+}
+
+.links li a {
+    display: block;
+    width: 200px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+    border: 2px solid #fff;
+    border-radius: 4px;
+    transition: background-color 500ms linear;
+}
+
+.links li a:hover {
+
+}
+
+.reddit:hover {background-color: rgba(255, 69, 0, 0.5)}
+.twitter:hover {background-color: rgba(0, 132, 180, 0.5)}
+.whatsapp:hover {background-color: rgba(100, 212, 72, 0.5)}
+.facebook:hover {background-color: rgba(59, 89, 152, 0.5)}
+.github:hover {background-color: rgba(130, 154, 168, 0.5)}
+.bitbucket:hover {background-color: rgba(32, 80, 129, 0.5)}
