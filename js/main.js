@@ -1,6 +1,7 @@
 
 var weatherLocation = 'Vantaa';
 var subreddit = 'EarthPorn';
+var imageExtensions = ['jpg', 'jpeg', 'png']
 
 function backgroundQuery(subreddit) {
     return $.ajax({
@@ -10,9 +11,16 @@ function backgroundQuery(subreddit) {
     })
 }
 
+function getImageUrl(data) {
+	var imgUrl = data.data.children[1].data.url
+	if (imageExtensions.indexOf(imgUrl.toLowerCase().split('.').pop()) == -1) imgUrl += '.jpg'
+	return imgUrl
+}
+
 function getBackground() {
     backgroundQuery(subreddit).done(function(data) {
-        $('body').css('background-image', 'url(' + data.data.children[1].data.url + ')')
+	
+        $('body').css('background-image', 'url(' + getImageUrl(data) + ')')
     })
 }
 
