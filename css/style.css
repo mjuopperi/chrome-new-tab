@@ -33,9 +33,13 @@ a {
     margin: 0 40px 20px;
 }
 
-.weather h1, .weather svg, .weather-info {
-    display: inline-block;
+.weather h1, .weather div, .weather-info {
     flex: 1;
+}
+
+.weather svg {
+    display: block;
+    margin: 0 auto;
 }
 
 .weather h1, .weather h2 {
@@ -49,6 +53,7 @@ a {
 }
 
 .weather-info h1, .weather-info h2 {
+    text-align: left;
     margin: 0 0 0 10px;
 }
 
@@ -59,7 +64,7 @@ a {
 }
 
 .weather-info h2 {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .links {
