@@ -19,8 +19,19 @@ function getImageUrl(data) {
 
 function getBackground() {
     backgroundQuery(subreddit).done(function(data) {
-	
-        $('body').css('background-image', 'url(' + getImageUrl(data) + ')')
+        var imageUrl = getImageUrl(data)
+        if ($('body').css('background-image').indexOf(imageUrl) == -1) {
+            $('body').css('background-image', 'url(' + imageUrl + ')')
+            chrome.storage.local.set({'imageUrl': imageUrl}, function() { console.log('saved ' + imageUrl)})
+        }
+    })
+}
+
+function setBackground() {
+    chrome.storage.local.get('imageUrl', function(imageUrl) {
+        if ('imageUrl' in imageUrl) $('body').css('background-image', 'url(' + imageUrl.imageUrl + ')')
+        else getBackground()
+        setInterval(getBackground, 10 * 60 * 1000) // 10 minutes
     })
 }
 
@@ -77,7 +88,7 @@ function getWeather() {
 }
 
 $(function() {
-    getBackground()
+    setBackground()
     getWeather()
     updateClock()
 })
