@@ -24,7 +24,7 @@ function getBackground() {
     backgroundQuery(subreddit).done(function(data) {
         var imageUrl = getImageUrl(data)
         setBackgroundImage(imageUrl)
-        chrome.storage.local.set({'imageUrl': imageUrl}, function() { console.log('saved ' + imageUrl)})
+        chrome.storage.local.set({'imageUrl': imageUrl})
     })
 }
 
