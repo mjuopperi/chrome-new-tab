@@ -15,7 +15,7 @@ function getImageUrl(data) {
     var imgUrl = data.data.children[1].data.url
     if (imageExtensions.indexOf(imgUrl.toLowerCase().split('.').pop()) == -1) {
         if (imgUrl.indexOf('imgur') > 0) imgUrl += '.jpg'
-		else imgUrl =  '/img/background.jpg'
+        else imgUrl =  '/img/background.jpg'
     }
     return imgUrl
 }
@@ -101,5 +101,5 @@ $(function() {
     setBackground()
     getWeather()
     updateClock()
-	setTimeout(getBackground, 3000)
+    setTimeout(getBackground, 3000)
 })
