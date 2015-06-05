@@ -91,4 +91,5 @@ $(function() {
     setBackground()
     getWeather()
     updateClock()
+	setTimeout(getBackground, 3000)
 })
