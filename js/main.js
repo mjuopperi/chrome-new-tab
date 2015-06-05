@@ -23,19 +23,26 @@ function getImageUrl(data) {
 function getBackground() {
     backgroundQuery(subreddit).done(function(data) {
         var imageUrl = getImageUrl(data)
-        if ($('body').css('background-image').indexOf(imageUrl) == -1) {
-            $('body').css('background-image', 'url(' + imageUrl + ')')
-            chrome.storage.local.set({'imageUrl': imageUrl}, function() { console.log('saved ' + imageUrl)})
-        }
+        setBackgroundImage(imageUrl)
+        chrome.storage.local.set({'imageUrl': imageUrl}, function() { console.log('saved ' + imageUrl)})
     })
 }
 
 function setBackground() {
     chrome.storage.local.get('imageUrl', function(imageUrl) {
-        if ('imageUrl' in imageUrl) $('body').css('background-image', 'url(' + imageUrl.imageUrl + ')')
+        if ('imageUrl' in imageUrl) setBackgroundImage(imageUrl.imageUrl)
         else getBackground()
         setInterval(getBackground, 10 * 60 * 1000) // 10 minutes
     })
+}
+
+function setBackgroundImage(url) {
+    if ($('body').css('background-image').indexOf(url) == -1) {
+        $("<img/>").attr("src", url).load(function() {
+            $(this).remove()
+            $('body').css("background-image", "url(" + url + ")")
+        })
+    }
 }
 
 function updateClock() {
