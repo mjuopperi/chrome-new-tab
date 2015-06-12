@@ -12,7 +12,7 @@ function backgroundQuery(subreddit) {
 }
 
 function getImageUrl(data) {
-    var imgUrl = data.data.children[1].data.url
+    var imgUrl = data.url
     if (imageExtensions.indexOf(imgUrl.toLowerCase().split('.').pop()) == -1) {
         if (imgUrl.indexOf('imgur') > 0) imgUrl += '.jpg'
         else imgUrl =  '/img/background.jpg'
@@ -21,7 +21,8 @@ function getImageUrl(data) {
 }
 
 function getBackground() {
-    backgroundQuery(subreddit).done(function(data) {
+    backgroundQuery(subreddit).done(function(result) {
+        var data = result.data.children[1].data
         var imageUrl = getImageUrl(data)
         setBackgroundImage(imageUrl)
         chrome.storage.local.set({'imageUrl': imageUrl})
