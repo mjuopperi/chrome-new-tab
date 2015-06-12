@@ -122,3 +122,14 @@ a {
 .facebook:hover {background-color: rgba(59, 89, 152, 0.5)}
 .github:hover {background-color: rgba(130, 154, 168, 0.5)}
 .bitbucket:hover {background-color: rgba(32, 80, 129, 0.5)}
+
+#background-source {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    max-width: 40%;
+    text-align: right;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

@@ -23,16 +23,21 @@ function getImageUrl(data) {
 function getBackground() {
     backgroundQuery(subreddit).done(function(result) {
         var data = result.data.children[1].data
+        var url = 'http://www.reddit.com' + data.permalink
+        var title = data.title.replace(/\[.*]/g, '')
         var imageUrl = getImageUrl(data)
+        setBackgroundSource(url, title)
         setBackgroundImage(imageUrl)
-        chrome.storage.local.set({'imageUrl': imageUrl})
+        saveData(url, title, imageUrl)
     })
 }
 
 function setBackground() {
-    chrome.storage.local.get('imageUrl', function(imageUrl) {
-        if ('imageUrl' in imageUrl) setBackgroundImage(imageUrl.imageUrl)
-        else getBackground()
+    chrome.storage.local.get('data', function(result) {
+        if ('data' in result) {
+            setBackgroundSource(result.data.url, result.data.title)
+            setBackgroundImage(result.data.imageUrl)
+        } else getBackground()
         setInterval(getBackground, 10 * 60 * 1000) // 10 minutes
     })
 }
@@ -44,6 +49,20 @@ function setBackgroundImage(url) {
             $('body').css("background-image", "url(" + url + ")")
         })
     }
+}
+
+function setBackgroundSource(url, title) {
+    $('#background-source').attr('href', url).text(title)
+}
+
+function saveData(url, title, imageUrl) {
+    chrome.storage.local.set({
+        'data': {
+            'url': url,
+            'title': title,
+            'imageUrl': imageUrl
+        }
+    })
 }
 
 function updateClock() {
