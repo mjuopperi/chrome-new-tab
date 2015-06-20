@@ -20,9 +20,14 @@ function getImageUrl(data) {
     return imgUrl
 }
 
+function getThreadData(result) {
+    var threads = result.data.children
+    return threads[threads.length - 1].data
+}
+
 function getBackground() {
     backgroundQuery(subreddit).done(function(result) {
-        var data = result.data.children[1].data
+        var data = getThreadData(result)
         var url = 'http://www.reddit.com' + data.permalink
         var title = data.title.replace(/\[.*]/g, '')
         var imageUrl = getImageUrl(data)
