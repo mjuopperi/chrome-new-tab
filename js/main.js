@@ -1,4 +1,5 @@
 
+var openWeatherMapAppid = ''
 var weatherLocation = 'Vantaa';
 var subreddit = 'EarthPorn';
 var imageExtensions = ['jpg', 'jpeg', 'png']
@@ -80,7 +81,7 @@ function weatherQuery(query) {
     return $.ajax({
         dataType: 'json',
         type: 'GET',
-        url: 'http://api.openweathermap.org/data/2.5/weather?q=' + query + '&type=like&units=metric'
+        url: 'http://api.openweathermap.org/data/2.5/weather?q=' + query + '&type=like&units=metric&APPID=' + openWeatherMapAppid
     })
 }
 
