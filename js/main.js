@@ -71,6 +71,13 @@ function saveData(url, title, imageUrl) {
     })
 }
 
+function saveLocation() {
+    var location = $(this).val()
+    chrome.storage.local.set({
+        'location': location
+    })
+}
+
 function updateClock() {
     var now = new Date()
     $('#clock').text(now.getHours() + ':' + (now.getMinutes() < 10 ? '0' + now.getMinutes() : now.getMinutes()))
@@ -86,10 +93,8 @@ function weatherQuery(query) {
 }
 
 function renderWeather(weather) {
-    $('.weather-info')
-        .html('<h2>Weather in ' + weather.name + '</h2>')
-        .append('<h1>' + weather.main.temp.toFixed(1) + ' °C</h1>')
-        .append('<h2>' + weather.weather[0].description + '</h2>')
+    $('.weather-info .temperature').text(weather.main.temp.toFixed(1) + ' °C')
+    $('.weather-info .description').text(weather.weather[0].description)
     $.get(iconUrl(weather), renderIcon)
 }
 
@@ -118,14 +123,43 @@ function iconUrl(weather) {
     else return baseUrl + 'sun.svg'
 }
 
-function getWeather() {
-    weatherQuery(weatherLocation).done(renderWeather)
-    setTimeout(getWeather, 5 * 60 * 1000)
+function handleStorageChange(changes, namespace) {
+    if ('location' in changes) {
+        getWeather(changes.location.newValue)
+    }
+}
+
+function getWeather(location) {
+    weatherQuery(location).done(function(data) {
+        renderWeather(data, location)
+    })
+}
+
+function updateWeather() {
+    chrome.storage.local.get('location', function(result) {
+        if ('location' in result) getWeather(result.location)
+    })
+    setTimeout(updateWeather, 3000)
+}
+
+function initWeatherLocation() {
+    chrome.storage.local.get('location', function(result) {
+        if ('location' in result && result.location != '') {
+            $('.weather input').val(result.location)
+        } else {
+            $('.weather input').val('Vantaa')
+        }
+    })
+    updateWeather()
 }
 
 $(function() {
+    $('.weather-info').on('keyup', '.weather-location', saveLocation)
+    chrome.storage.onChanged.addListener(handleStorageChange)
+
+    getWeather('Vantaa')
     setBackground()
-    getWeather()
     updateClock()
+    initWeatherLocation()
     setTimeout(getBackground, 3000)
 })
