@@ -1,6 +1,5 @@
 
 var openWeatherMapAppid = ''
-var weatherLocation = 'Vantaa';
 var subreddit = 'EarthPorn';
 var imageExtensions = ['jpg', 'jpeg', 'png']
 
@@ -123,12 +122,6 @@ function iconUrl(weather) {
     else return baseUrl + 'sun.svg'
 }
 
-function handleStorageChange(changes, namespace) {
-    if ('location' in changes) {
-        getWeather(changes.location.newValue)
-    }
-}
-
 function getWeather(location) {
     weatherQuery(location).done(function(data) {
         renderWeather(data, location)
@@ -155,7 +148,6 @@ function initWeatherLocation() {
 
 $(function() {
     $('.weather-info').on('keyup', '.weather-location', saveLocation)
-    chrome.storage.onChanged.addListener(handleStorageChange)
 
     getWeather('Vantaa')
     setBackground()
