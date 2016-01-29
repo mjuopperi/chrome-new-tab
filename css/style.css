@@ -71,6 +71,7 @@ a {
 
 .weather-info input {
     display: inline-block;
+    position: absolute;
     font-size: 20px;
     color: #fff;
     font-weight: bold;
