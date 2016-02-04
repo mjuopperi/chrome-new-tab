@@ -2,6 +2,7 @@
 var openWeatherMapAppid = ''
 var subreddit = 'EarthPorn';
 var imageExtensions = ['jpg', 'jpeg', 'png']
+var currentIcon = ''
 
 function backgroundQuery(subreddit) {
     return $.ajax({
@@ -94,7 +95,12 @@ function weatherQuery(query) {
 function renderWeather(weather) {
     $('.weather-info .temperature').text(weather.main.temp.toFixed(1) + ' °C')
     $('.weather-info .description').text(weather.weather[0].description)
-    $.get(iconUrl(weather), renderIcon)
+
+    var iconUrl = getIconUrl(weather)
+    if (iconUrl != currentIcon) {
+        currentIcon = iconUrl
+        $.get(iconUrl, renderIcon)
+    }
 }
 
 function renderIcon(icon) {
@@ -103,7 +109,7 @@ function renderIcon(icon) {
 
 function timestampToDate(timestamp) { return new Date(timestamp * 1000) }
 
-function iconUrl(weather) {
+function getIconUrl(weather) {
     var weatherId = weather.weather[0].id
     var baseUrl = '/img/'
     var now = new Date()
