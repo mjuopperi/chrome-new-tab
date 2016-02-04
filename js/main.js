@@ -158,7 +158,6 @@ function initWeatherLocation() {
 $(function() {
     $('.weather-info').on('keyup', '.weather-location', saveLocation)
 
-    getWeather('Vantaa')
     setBackground()
     updateClock()
     initWeatherLocation()
