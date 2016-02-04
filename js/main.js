@@ -146,6 +146,9 @@ function initWeatherLocation() {
         if ('location' in result && result.location != '') {
             $('.weather input').val(result.location)
         } else {
+            chrome.storage.local.set({
+                'location': 'Vantaa'
+            })
             $('.weather input').val('Vantaa')
         }
     })
